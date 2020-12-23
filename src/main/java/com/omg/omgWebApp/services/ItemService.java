@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,66 +15,54 @@ import org.springframework.web.multipart.MultipartFile;
 import com.omg.omgWebApp.constant.Contants;
 import com.omg.omgWebApp.model.Cloth;
 import com.omg.omgWebApp.model.Item;
+import com.omg.omgWebApp.model.ItemType;
 import com.omg.omgWebApp.model.RequestCloth;
 import com.omg.omgWebApp.repositories.ClothRepo;
+import com.omg.omgWebApp.utils.DataConverterUtil;
 
 @Component
 public class ItemService {
 
 	@Autowired
 	private ClothRepo clothRepo;
-//	public void addItem(Item cloth)
-//	{
-//		String folder = "/omg/src/main/resources/image/";
-//		byte[] bytes = null;
-//		try {
-//			bytes = cloth.getImage().getBytes();
-//		} catch (IOException e) {
-//			System.err.println("No Image Found");
-//			e.printStackTrace();
-//		}
-//		saveImage(cloth.getImage());
-//		Path path = Paths.get(folder + cloth.getName() + ".jpg");
-//		try {
-//			Files.write(path, bytes);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		clothRepo.save((Cloth)cloth);
-//	}
-//	
-//	public void testImage(MultipartFile image)
-//	{
-//		byte[] bytes = null;
-//		try {
-//			bytes = image.getBytes();
-//		} catch (IOException e) {
-//			System.err.println("No Image Found");
-//			e.printStackTrace();
-//		}
-//	}
-//	
-//	public void saveImage(MultipartFile image) {
-//		String folder = "/omg/src/main/resources/image/";
-//		byte[] bytes = null;
-//		try {
-//			bytes = image.getBytes();
-//		} catch (IOException e) {
-//			System.err.println("No Image Found");
-//			e.printStackTrace();
-//		}
-//		Path path = Paths.get(folder + image.getName());
-//		try {
-//			Files.write(path, bytes);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	@Autowired
+	private DataConverterUtil dataConverter;
+	
+	@Autowired
+	
+	
+	public void addCloth(RequestCloth reqCloth, MultipartFile imageFile) {
+		Item cloth = dataConverter.convertCloth(reqCloth, imageFile);
+		Path path = Paths.get(Contants.PATH_FOR_IMAGE + reqCloth.getName() +Contants.IMG_EXT_JPG);
+		saveImage(path,imageFile);
+		clothRepo.save((Cloth) cloth);
+	}
+	
+	public void saveImage(Path path,MultipartFile imageFile) {
+		byte[] bytes = null;
+		try {
+			bytes = imageFile.getBytes();
+		} catch (IOException e) {
+			System.err.println("No Image Found");
+			e.printStackTrace();
+		}
+		try {
+			Files.write(path, bytes);
+		} catch (IOException e) {
+			System.err.println("Problem in adding file to path " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
-	public void addCloth(RequestCloth reqCloth, MultipartFile image) {
-		System.out.println(Contants.PRIYANKA);
-//		Item cloth = new Cloth(reqCloth.);
+	public List<String> getAllTypes() {
+		return Stream.of(ItemType.values()).map(ItemType::name)
+                .collect(Collectors.toList());
+	}
+
+	public void addType(String type) {
+		
 		
 	}
+	
 
 }

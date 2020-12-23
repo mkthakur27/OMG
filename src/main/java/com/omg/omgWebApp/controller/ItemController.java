@@ -1,6 +1,8 @@
 package com.omg.omgWebApp.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,29 +16,34 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.omg.omgWebApp.model.Cloth;
-import com.omg.omgWebApp.model.Item;
-import com.omg.omgWebApp.model.ItemType;
 import com.omg.omgWebApp.model.RequestCloth;
 import com.omg.omgWebApp.services.ItemService;
 
 @RestController
-public class AddItemController {
+public class ItemController {
 
 	@Autowired
 	private ItemService itemService;
 	
 	
-	@PostMapping(value = "/item",consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE })
-	public String insertItem(@RequestPart("image") MultipartFile image,
+	@PostMapping(value = "/addItem",consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE })
+	public RequestCloth addItem(@RequestPart("image") MultipartFile image,
 			@RequestPart("cloth") RequestCloth reqCloth) {
 		this.itemService.addCloth(reqCloth,image);
+		return reqCloth;
+	}
+	
+	@GetMapping("/getAllTypes")
+	public List<String> getAllTypes(){
+		
+		return itemService.getAllTypes();
+	}
+	
+	@PostMapping("/addType")
+	public String addType(@RequestParam("type") String type)
+	{
+		this.itemService.addType(type);
 		return "Sucess";
 	}
 	
-	@GetMapping("/item")
-	public Cloth getItem()
-	{
-		return new Cloth();
-	}
 }

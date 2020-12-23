@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class RequestCloth {
 
 	private String name;
-	private String price;
+	private double price;
 	private ItemType type;
 }

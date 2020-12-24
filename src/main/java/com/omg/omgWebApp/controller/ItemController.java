@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.omg.omgWebApp.model.ItemType;
 import com.omg.omgWebApp.model.RequestCloth;
 import com.omg.omgWebApp.services.ItemService;
 
@@ -34,8 +35,7 @@ public class ItemController {
 	}
 	
 	@GetMapping("/getAllTypes")
-	public List<String> getAllTypes(){
-		
+	public List<ItemType> getAllTypes(){
 		return itemService.getAllTypes();
 	}
 	
@@ -46,4 +46,15 @@ public class ItemController {
 		return "Sucess";
 	}
 	
+	@GetMapping("/getItem")
+	public List<RequestCloth> getItem(@RequestPart("type") ItemType type)
+	{
+		return this.itemService.getItemByType(type);
+	}
+	
+	@GetMapping("/dummyCloth")
+	public RequestCloth getDummyCloth()
+	{
+		return new RequestCloth();
+	}
 }

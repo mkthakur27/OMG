@@ -1,12 +1,23 @@
 package com.omg.omgWebApp.model;
 
-public enum ItemType {
-	SHIRT(0),PANT(1),SKIRT(2),JEANS(3);
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
-	private int value;
-	ItemType(int i) {
-		// TODO Auto-generated constructor stub
-		value = i;
-	}
+import lombok.Data;
+
+@Data
+@Entity
+public class ItemType {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private String type;
+	public ItemType(String type)
+	{
+		this.type = type;
+	}
 }

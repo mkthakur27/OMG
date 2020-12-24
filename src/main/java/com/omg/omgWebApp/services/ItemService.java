@@ -18,6 +18,7 @@ import com.omg.omgWebApp.model.Item;
 import com.omg.omgWebApp.model.ItemType;
 import com.omg.omgWebApp.model.RequestCloth;
 import com.omg.omgWebApp.repositories.ClothRepo;
+import com.omg.omgWebApp.repositories.ItemTypeRepo;
 import com.omg.omgWebApp.utils.DataConverterUtil;
 
 @Component
@@ -27,12 +28,11 @@ public class ItemService {
 	private ClothRepo clothRepo;
 	@Autowired
 	private DataConverterUtil dataConverter;
-	
 	@Autowired
-	
+	private ItemTypeRepo itemTypeRepo;
 	
 	public void addCloth(RequestCloth reqCloth, MultipartFile imageFile) {
-		Item cloth = dataConverter.convertCloth(reqCloth, imageFile);
+		Item cloth = this.dataConverter.convertClothToRequestCloth(reqCloth, imageFile);
 		Path path = Paths.get(Contants.PATH_FOR_IMAGE + reqCloth.getName() +Contants.IMG_EXT_JPG);
 		saveImage(path,imageFile);
 		clothRepo.save((Cloth) cloth);
@@ -54,14 +54,24 @@ public class ItemService {
 		}
 	}
 
-	public List<String> getAllTypes() {
-		return Stream.of(ItemType.values()).map(ItemType::name)
-                .collect(Collectors.toList());
+	public List<ItemType> getAllTypes() {
+		return this.itemTypeRepo.findAll();
 	}
 
 	public void addType(String type) {
+		ItemType itemType = new ItemType(type);
+		this.itemTypeRepo.save(itemType);
 		
+	}
+
+	public List<RequestCloth> getItemByType(ItemType type) {
 		
+		List<RequestCloth> reqClothList = null;
+		for (Cloth cloth : this.clothRepo.findByType(type))
+		{
+			reqClothList.add(this.dataConverter.convertClothToRequestCloth(cloth));
+		}
+		return reqClothList;
 	}
 	
 

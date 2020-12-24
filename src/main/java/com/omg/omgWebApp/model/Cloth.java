@@ -23,18 +23,22 @@ public class Cloth implements Item {
 	private int id;
 	private String name;
 	private double price;
+	@OneToOne(cascade = CascadeType.ALL)
 	private ItemType type;
 	private String imgPath;
 	private String size;
+	private int quantity;
 	
 	@Transient  
 	private MultipartFile image;
 	
-	public Cloth(String name,double price,ItemType type,MultipartFile image)
+	public Cloth(String name,double price,ItemType type,MultipartFile image,String size,int quantity)
 	{
 		this.name = name;
 		this.price = price;
 		this.type = type;
 		this.image = image;
+		this.size = size;
+		this.quantity = quantity;
 	}
 }

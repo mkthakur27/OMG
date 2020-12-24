@@ -11,5 +11,7 @@ public class RequestCloth {
 
 	private String name;
 	private double price;
-	private ItemType type;
+	private String type;
+	private String size;
+	private int quantity;
 }

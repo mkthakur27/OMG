@@ -34,20 +34,8 @@ public class ItemController {
 		return reqCloth;
 	}
 	
-	@GetMapping("/getAllTypes")
-	public List<ItemType> getAllTypes(){
-		return itemService.getAllTypes();
-	}
-	
-	@PostMapping("/addType")
-	public String addType(@RequestParam("type") String type)
-	{
-		this.itemService.addType(type);
-		return "Sucess";
-	}
-	
-	@GetMapping("/getItem")
-	public List<RequestCloth> getItem(@RequestPart("type") ItemType type)
+	@GetMapping("/getItemsByType")
+	public List<RequestCloth> getItem(@RequestBody ItemType type)
 	{
 		return this.itemService.getItemByType(type);
 	}
@@ -57,4 +45,6 @@ public class ItemController {
 	{
 		return new RequestCloth();
 	}
+	
+
 }

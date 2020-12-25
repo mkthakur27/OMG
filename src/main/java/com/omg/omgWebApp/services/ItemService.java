@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,11 +32,13 @@ public class ItemService {
 	@Autowired
 	private DataConverterUtil dataConverter;
 	@Autowired
-	private ItemTypeRepo itemTypeRepo;
+	private ItemTypeService itemTypeService;
+	
 	
 	public void addCloth(RequestCloth reqCloth, MultipartFile imageFile) {
-		Item cloth = this.dataConverter.convertClothToRequestCloth(reqCloth, imageFile);
+		Item cloth = this.dataConverter.convertRequestClothToCloth(reqCloth, imageFile);
 		Path path = Paths.get(Contants.PATH_FOR_IMAGE + reqCloth.getName() +Contants.IMG_EXT_JPG);
+		cloth.setImgPath(path.toString());
 		saveImage(path,imageFile);
 		clothRepo.save((Cloth) cloth);
 	}
@@ -54,22 +59,14 @@ public class ItemService {
 		}
 	}
 
-	public List<ItemType> getAllTypes() {
-		return this.itemTypeRepo.findAll();
-	}
-
-	public void addType(String type) {
-		ItemType itemType = new ItemType(type);
-		this.itemTypeRepo.save(itemType);
-		
-	}
-
 	public List<RequestCloth> getItemByType(ItemType type) {
 		
-		List<RequestCloth> reqClothList = null;
-		for (Cloth cloth : this.clothRepo.findByType(type))
+		ItemType itemTypes = this.itemTypeService.getItemTypeByType(type.getType());
+		List<RequestCloth> reqClothList = new ArrayList<>();
+		for (Cloth cloth : this.clothRepo.findByItemType(itemTypes))
 		{
-			reqClothList.add(this.dataConverter.convertClothToRequestCloth(cloth));
+			RequestCloth reqCloth = this.dataConverter.convertClothToRequestCloth(cloth);
+			reqClothList.add(reqCloth);
 		}
 		return reqClothList;
 	}

@@ -10,6 +10,5 @@ import com.omg.omgWebApp.model.ItemType;
 
 public interface ClothRepo extends JpaRepository<Cloth, Integer>{
 
-//	List<Cloth> findByItemType(final ItemType type);
 	List<Cloth> findByItemType(ItemType type);
 }

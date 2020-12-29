@@ -1,18 +1,12 @@
 package com.omg.omgWebApp.model;
-
-
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.GeneratedValue;
 
 
 @Data
@@ -27,8 +21,7 @@ public class Cloth implements Item {
 	private String name;
 	@Column(name = "price")
 	private double price;
-	
-	@OneToOne(cascade = CascadeType.ALL)
+	@Column(name="item_type")
 	private ItemType itemType;
 	@Column(name="image_path")
 	private String imgPath;
@@ -37,7 +30,7 @@ public class Cloth implements Item {
 	@Column(name= "quantity")
 	private int quantity;
 	
-	@Transient  
+	@Transient
 	private MultipartFile image;
 	
 	public Cloth(String name,double price,ItemType type,MultipartFile image,String size,int quantity)

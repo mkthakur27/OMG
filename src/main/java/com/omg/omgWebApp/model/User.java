@@ -12,5 +12,4 @@ public class User {
 	String emaiId;
 	List<Address> addresses;
 	int cartId;
-	List<Order> orders;
 }

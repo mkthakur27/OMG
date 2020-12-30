@@ -46,5 +46,9 @@ public class ItemController {
 		return new RequestCloth();
 	}
 	
+	@GetMapping("/cloth")
+	public List<RequestCloth> getAllItem(){
+		return this.itemService.getAllCloth();
+	}
 
 }

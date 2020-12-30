@@ -2,11 +2,13 @@ package com.omg.omgWebApp.repositories;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.apache.ibatis.annotations.Mapper;
 import com.omg.omgWebApp.model.ItemType;
 
-public interface ItemTypeRepo extends JpaRepository<ItemType, Integer> {
+@Mapper
+public interface ItemTypeRepo  {
 	
 	List<ItemType> findAllByType(String item_name);
+	List<ItemType> findAll();
+	public void save(ItemType itemType);
 }

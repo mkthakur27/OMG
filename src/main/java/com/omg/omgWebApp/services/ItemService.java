@@ -6,10 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,7 +17,6 @@ import com.omg.omgWebApp.model.Item;
 import com.omg.omgWebApp.model.ItemType;
 import com.omg.omgWebApp.model.RequestCloth;
 import com.omg.omgWebApp.repositories.ClothRepo;
-import com.omg.omgWebApp.repositories.ItemTypeRepo;
 import com.omg.omgWebApp.utils.DataConverterUtil;
 
 @Component
@@ -69,6 +64,15 @@ public class ItemService {
 			reqClothList.add(reqCloth);
 		}
 		return reqClothList;
+	}
+
+	public List<RequestCloth> getAllCloth() {
+		List<RequestCloth> allItem = new ArrayList<>();
+		for (Cloth cloth : this.clothRepo.findAll())
+		{
+			allItem.add(this.dataConverter.convertClothToRequestCloth(cloth));
+		}
+		return allItem;
 	}
 	
 

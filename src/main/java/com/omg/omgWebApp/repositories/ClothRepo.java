@@ -2,13 +2,17 @@ package com.omg.omgWebApp.repositories;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import com.omg.omgWebApp.model.Cloth;
 import com.omg.omgWebApp.model.ItemType;
 
-public interface ClothRepo extends JpaRepository<Cloth, Integer>{
+@Mapper
+public interface ClothRepo{
 
+	@Select("select * from cloth")
+	List<Cloth> findAll();
 	List<Cloth> findByItemType(ItemType type);
+	public void save(Cloth cloth);
 }

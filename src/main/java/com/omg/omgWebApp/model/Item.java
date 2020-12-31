@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface Item {
 	public String getName();
 	public double getPrice();
-	public ItemType getItemType();
+	public int getTypeId();
 	public String getImgPath();
 	public void setImgPath(String path);
 	public MultipartFile getImage();

@@ -2,13 +2,21 @@ package com.omg.omgWebApp.repositories;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
 import com.omg.omgWebApp.model.ItemType;
 
 @Mapper
 public interface ItemTypeRepo  {
 	
-	List<ItemType> findAllByType(String item_name);
+	@Select("select * from itemtype")
 	List<ItemType> findAll();
-	public void save(ItemType itemType);
+	@Insert("insert into itemtype(name) values(#{name})")
+	public void save(String name);
+	@Select("select name from itemtype where id=#{id}")  
+	ItemType findById(int id);
+	@Select("select id from itemtype where name=#{name}")
+	ItemType findByTypeName(String name);
 }

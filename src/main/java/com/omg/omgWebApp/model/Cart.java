@@ -2,8 +2,11 @@ package com.omg.omgWebApp.model;
 
 import java.util.List;
 
+import lombok.Data;
+
+@Data
 public class Cart {
-	int cartId;
-	List<Item> itemList;
-	User user;
+	private int id;
+	private short isActive;
+	private List<Item> itemList;
 }

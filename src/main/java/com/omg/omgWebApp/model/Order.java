@@ -3,7 +3,7 @@ package com.omg.omgWebApp.model;
 public class Order {
 	int orderId;
 	OrderStatus status;
-	User user;
+	int userId;
 	Address address;
-	Item item;
+	int itemId;
 }

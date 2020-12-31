@@ -13,17 +13,17 @@ public class Cloth implements Item {
 	private int id;
 	private String name;
 	private double price;
-	private ItemType itemType;
+	private int typeId;
 	private String imgPath;
 	private String size;
 	private int quantity;	
 	private MultipartFile image;
 	
-	public Cloth(String name,double price,ItemType type,MultipartFile image,String size,int quantity)
+	public Cloth(String name,double price,int type,MultipartFile image,String size,int quantity)
 	{
 		this.name = name;
 		this.price = price;
-		this.itemType = type;
+		this.typeId = type;
 		this.image = image;
 		this.size = size;
 		this.quantity = quantity;

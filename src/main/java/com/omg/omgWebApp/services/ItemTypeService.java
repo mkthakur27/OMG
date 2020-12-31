@@ -19,13 +19,12 @@ public class ItemTypeService {
 	}
 
 	public void addType(ItemType itemType) {
-		this.itemTypeRepo.save(itemType);
+		this.itemTypeRepo.save(itemType.getName());
 		
 	}
 	
 	public ItemType getItemTypeByType(String type_name)
 	{
-		List<ItemType> itemTypes = this.itemTypeRepo.findAllByType(type_name);
-		return itemTypes.get(0);
+		return this.itemTypeRepo.findByTypeName(type_name);
 	}
 }

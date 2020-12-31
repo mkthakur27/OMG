@@ -1,6 +1,5 @@
 package com.omg.omgWebApp.utils;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,15 +18,15 @@ public class DataConverterUtil {
 	
 	public Cloth convertRequestClothToCloth(RequestCloth reqCloth, MultipartFile imageFile)
 	{
-		List<ItemType> allItemTypes = itemTypeRepo.findAllByType(reqCloth.getType());
-		ItemType itemType = allItemTypes.get(0);
-		Cloth cloth = new Cloth(reqCloth.getName(),reqCloth.getPrice(),itemType,imageFile,reqCloth.getSize(),
+		ItemType itemType = itemTypeRepo.findByTypeName(reqCloth.getType());
+		Cloth cloth = new Cloth(reqCloth.getName(),reqCloth.getPrice(),itemType.getId(),imageFile,reqCloth.getSize(),
 				reqCloth.getQuantity());
 		return cloth;
 	}
 	
 	public RequestCloth convertClothToRequestCloth(Cloth cloth)
 	{
-		return new RequestCloth(cloth.getName(), cloth.getPrice(), cloth.getItemType().getType(), cloth.getSize(),cloth.getQuantity());
+		ItemType itemType = itemTypeRepo.findById(cloth.getTypeId());
+		return new RequestCloth(cloth.getName(), cloth.getPrice(), itemType.getName(), cloth.getSize(),cloth.getQuantity());
 	}
 }

@@ -35,7 +35,7 @@ public class ItemService {
 		Path path = Paths.get(Contants.PATH_FOR_IMAGE + reqCloth.getName() +Contants.IMG_EXT_JPG);
 		cloth.setImgPath(path.toString());
 		saveImage(path,imageFile);
-		clothRepo.save((Cloth) cloth);
+		this.clothRepo.save((Cloth) cloth);
 	}
 	
 	public void saveImage(Path path,MultipartFile imageFile) {
@@ -56,7 +56,7 @@ public class ItemService {
 
 	public List<RequestCloth> getItemByType(ItemType type) {
 		
-		ItemType itemTypes = this.itemTypeService.getItemTypeByType(type.getType());
+		ItemType itemTypes = this.itemTypeService.getItemTypeByType(type.getName());
 		List<RequestCloth> reqClothList = new ArrayList<>();
 		for (Cloth cloth : this.clothRepo.findByItemType(itemTypes))
 		{

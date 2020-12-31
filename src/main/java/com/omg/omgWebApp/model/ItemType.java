@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 public class ItemType {
 	
 	private int id;
-	private String type;
-	public ItemType(String type)
+	private String name;
+	public ItemType(String name)
 	{
-		this.type = type;
+		this.name = name;
 	}
 }

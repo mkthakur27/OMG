@@ -10,6 +10,4 @@ public class User {
 	String fullName;
 	int mobileNumber;
 	String emaiId;
-	List<Address> addresses;
-	int cartId;
 }

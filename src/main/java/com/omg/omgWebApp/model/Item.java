@@ -1,13 +1,30 @@
 package com.omg.omgWebApp.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.web.multipart.MultipartFile;
 
-public interface Item {
-	public String getName();
-	public double getPrice();
-	public int getTypeId();
-	public String getImgPath();
-	public void setImgPath(String path);
-	public MultipartFile getImage();
-	public void setImage(MultipartFile image);
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@Data
+@NoArgsConstructor
+public class Item {
+
+	private int id;
+	private String name;
+	private int typeId;
+	private String imgPath;
+	private Map<String,Integer> sizeQuantityMap = new HashMap<>();
+	private Map<String,Double> sizePriceMap = new HashMap<>();
+	
+	public Item(String name,Map<String,Double> sizePrice,int typeId,Map<String,Integer> sizeQuantity)
+	{
+		this.name = name;
+		this.sizePriceMap = sizePrice;
+		this.typeId = typeId;
+		this.sizeQuantityMap = sizeQuantity;
+	}
 }

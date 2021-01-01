@@ -12,32 +12,36 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.omg.omgWebApp.constant.Contants;
-import com.omg.omgWebApp.model.Cloth;
+import com.omg.omgWebApp.model.Item;
 import com.omg.omgWebApp.model.Item;
 import com.omg.omgWebApp.model.ItemType;
 import com.omg.omgWebApp.model.RequestCloth;
-import com.omg.omgWebApp.repositories.ClothRepo;
+import com.omg.omgWebApp.repositories.ItemRepo;
+import com.omg.omgWebApp.repositories.ItemSizeQuantityPriceMapRepo;
 import com.omg.omgWebApp.utils.DataConverterUtil;
 
 @Component
 public class ItemService {
 
 	@Autowired
-	private ClothRepo clothRepo;
+	private ItemRepo itemRepo;
 	@Autowired
-	private DataConverterUtil dataConverter;
-	@Autowired
-	private ItemTypeService itemTypeService;
+	ItemSizeQuantityPriceMapService itemSizeQuantityPriceMapService;
 	
-	
-	public void addCloth(RequestCloth reqCloth, MultipartFile imageFile) {
-		Item cloth = this.dataConverter.convertRequestClothToCloth(reqCloth, imageFile);
-		Path path = Paths.get(Contants.PATH_FOR_IMAGE + reqCloth.getName() +Contants.IMG_EXT_JPG);
+	public void addCloth(Item cloth, MultipartFile imageFile) {
+		Path path = Paths.get(Contants.PATH_FOR_IMAGE + cloth.getName() +Contants.IMG_EXT_JPG);
 		cloth.setImgPath(path.toString());
 		saveImage(path,imageFile);
-		this.clothRepo.save((Cloth) cloth);
+		this.itemRepo.save(cloth);
+		int id = this.itemRepo.lastInsertId();
+		saveSizeQuantityAndSizePriceMap(id,cloth);
 	}
 	
+	private void saveSizeQuantityAndSizePriceMap(int id,Item cloth) {
+		this.itemSizeQuantityPriceMapService.save(id, cloth);
+		
+	}
+
 	public void saveImage(Path path,MultipartFile imageFile) {
 		byte[] bytes = null;
 		try {
@@ -54,25 +58,15 @@ public class ItemService {
 		}
 	}
 
-	public List<RequestCloth> getItemByType(ItemType type) {
+	public List<Item> getItemByType(int typeId) {
 		
-		ItemType itemTypes = this.itemTypeService.getItemTypeByType(type.getName());
-		List<RequestCloth> reqClothList = new ArrayList<>();
-		for (Cloth cloth : this.clothRepo.findByItemType(itemTypes))
-		{
-			RequestCloth reqCloth = this.dataConverter.convertClothToRequestCloth(cloth);
-			reqClothList.add(reqCloth);
-		}
-		return reqClothList;
+		List<Item> itemList = this.itemRepo.findByItemType(typeId);
+		this.itemSizeQuantityPriceMapService.fillMaps(itemList);
+		return itemList;
 	}
 
-	public List<RequestCloth> getAllCloth() {
-		List<RequestCloth> allItem = new ArrayList<>();
-		for (Cloth cloth : this.clothRepo.findAll())
-		{
-			allItem.add(this.dataConverter.convertClothToRequestCloth(cloth));
-		}
-		return allItem;
+	public List<Item> getAllCloth() {
+		return this.itemRepo.findAll();
 	}
 	
 

@@ -5,10 +5,10 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.omg.omgWebApp.model.Cloth;
+import com.omg.omgWebApp.model.Item;
 import com.omg.omgWebApp.model.ItemType;
 
-@MappedTypes({ItemType.class,Cloth.class})
+@MappedTypes({ItemType.class,Item.class})
 @MapperScan({"com.omg.omgWebApp.repositories"})
 @SpringBootApplication
 public class OmgApplication {

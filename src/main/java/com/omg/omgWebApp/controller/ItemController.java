@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.omg.omgWebApp.model.Item;
 import com.omg.omgWebApp.model.ItemType;
 import com.omg.omgWebApp.model.RequestCloth;
 import com.omg.omgWebApp.services.ItemService;
@@ -28,26 +29,26 @@ public class ItemController {
 	
 	
 	@PostMapping(value = "/addItem",consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE })
-	public RequestCloth addItem(@RequestPart("image") MultipartFile image,
-			@RequestPart("cloth") RequestCloth reqCloth) {
-		this.itemService.addCloth(reqCloth,image);
-		return reqCloth;
+	public String addItem(@RequestPart("image") MultipartFile image,
+			@RequestPart("cloth") Item cloth) {
+		this.itemService.addCloth(cloth,image);
+		return "Sucess";
 	}
 	
-	@GetMapping("/getItemsByType")
-	public List<RequestCloth> getItem(@RequestBody ItemType type)
+	@GetMapping("/getItemsByType/{type}")
+	public List<Item> getItem(@PathVariable(value="type") int type)
 	{
 		return this.itemService.getItemByType(type);
 	}
 	
 	@GetMapping("/dummyCloth")
-	public RequestCloth getDummyCloth()
+	public Item getDummyCloth()
 	{
-		return new RequestCloth();
+		return new Item();
 	}
 	
 	@GetMapping("/cloth")
-	public List<RequestCloth> getAllItem(){
+	public List<Item> getAllItem(){
 		return this.itemService.getAllCloth();
 	}
 

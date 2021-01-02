@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.omg.omgWebApp.constant.Contants;
 import com.omg.omgWebApp.model.Item;
-import com.omg.omgWebApp.model.Item;
-import com.omg.omgWebApp.model.ItemType;
-import com.omg.omgWebApp.model.RequestCloth;
 import com.omg.omgWebApp.repositories.ItemRepo;
-import com.omg.omgWebApp.repositories.ItemSizeQuantityPriceMapRepo;
-import com.omg.omgWebApp.utils.DataConverterUtil;
 
 @Component
 public class ItemService {

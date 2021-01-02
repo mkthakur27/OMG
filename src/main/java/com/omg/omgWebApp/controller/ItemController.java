@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.omg.omgWebApp.model.Item;
 import com.omg.omgWebApp.model.ItemType;
-import com.omg.omgWebApp.model.RequestCloth;
 import com.omg.omgWebApp.services.ItemService;
 
 @RestController

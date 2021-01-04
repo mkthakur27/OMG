@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class CartItemMap {
 
-	public int cartId;
-	public int itemId;
+	private int cartId;
+	private int itemId;
+	private String size;
+	private int quantity;
 }

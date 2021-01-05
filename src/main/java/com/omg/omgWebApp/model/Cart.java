@@ -8,5 +8,5 @@ import lombok.Data;
 public class Cart {
 	private int id;
 	private short isActive;
-	private List<Item> itemList;
+	private List<CartItemMap> itemList;
 }

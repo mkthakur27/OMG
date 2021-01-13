@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,13 +35,14 @@ public class ItemController {
 		return "Sucess";
 	}
 	
+	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping("/getItemsByType/{type}")
 	public List<Item> getItem(@PathVariable(value="type") int type)
 	{
 		return this.itemService.getItemByType(type);
 	}
 	
-	@GetMapping("/dummyCloth")
+	@GetMapping("/dummyItem")
 	public Item getDummyCloth()
 	{
 		return new Item();

@@ -9,6 +9,7 @@ public class ItemType {
 	
 	private int id;
 	private String name;
+	private String imgPath;
 	public ItemType(String name)
 	{
 		this.name = name;

@@ -12,7 +12,7 @@ import com.omg.omgWebApp.model.ItemType;
 public interface ItemTypeRepo  {
 	
 	@Select("select * from itemtype")
-	List<ItemType> findAll();
+	public List<ItemType> findAll();
 	@Insert("insert into itemtype(name,imgPath) values(#{name},#{imgPath})")
 	public void save(ItemType item);
 	@Select("select name from itemtype where id=#{id}")  

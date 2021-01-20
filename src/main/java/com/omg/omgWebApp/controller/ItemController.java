@@ -30,8 +30,8 @@ public class ItemController {
 	
 	@PostMapping(value = "/addItem",consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE })
 	public String addItem(@RequestPart("image") MultipartFile image,
-			@RequestPart("cloth") Item cloth) {
-		this.itemService.addCloth(cloth,image);
+			@RequestPart("item") Item item) {
+		this.itemService.addCloth(item,image);
 		return "Sucess";
 	}
 	

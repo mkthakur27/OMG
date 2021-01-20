@@ -28,7 +28,7 @@ public class BrandServiceImpl implements BrandService {
 	public void addBrand(Brand brand, MultipartFile imageFile,MultipartFile logo) {
 		String imgPath = saveImageUtil.saveImage(brand.getName(), imageFile);
 		brand.setImgPath(imgPath);
-		String logoImgPath = saveImageUtil.saveImage(logo.getName(), logo);
+		String logoImgPath = saveImageUtil.saveImage(brand.getName()+"Logo", logo);
 		brand.setLogoImgPath(logoImgPath);
 		this.brandRepo.save(brand);
 	}

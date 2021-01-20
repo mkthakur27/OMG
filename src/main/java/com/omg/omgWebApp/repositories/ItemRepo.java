@@ -19,7 +19,7 @@ public interface ItemRepo{
 	@Select("select * from item where typeid=#{typeId}")
 	public List<Item> findByItemType(int typeId);
 	
-	@Insert("insert into item(name,imgPath,typeid,description,brand) values(#{name},#{imgPath},#{typeId},#{description},#{brand})")
+	@Insert("insert into item(name,imgPath,typeid,description,brandid,section) values(#{name},#{imgPath},#{typeId},#{description},#{brandId},#{section})")
 	public void save(Item cloth);
 	
 	@Select("SELECT LAST_INSERT_ID()")

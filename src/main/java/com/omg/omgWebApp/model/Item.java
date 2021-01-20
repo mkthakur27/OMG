@@ -20,15 +20,18 @@ public class Item {
 	private Map<String,Integer> sizeQuantityMap = new HashMap<>();
 	private Map<String,Double> sizePriceMap = new HashMap<>();
 	private String description;
-	private String brand;
+	private int brandId;
+	private Section section; 
 	
-	public Item(String name,Map<String,Double> sizePrice,int typeId,Map<String,Integer> sizeQuantity,String description,String brand)
+	public Item(String name,Map<String,Double> sizePrice,int typeId,Map<String,Integer> sizeQuantity,String description,int brandId,
+			Section section)
 	{
 		this.name = name;
 		this.sizePriceMap = sizePrice;
 		this.typeId = typeId;
 		this.sizeQuantityMap = sizeQuantity;
 		this.description = description;
-		this.brand = brand;
+		this.brandId = brandId;
+		this.section = section;
 	}
 }

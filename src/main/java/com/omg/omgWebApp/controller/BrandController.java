@@ -2,6 +2,7 @@ package com.omg.omgWebApp.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import com.omg.omgWebApp.services.BrandService;
 @RestController
 public class BrandController {
 
+	@Autowired
 	private BrandService brandService;
 	
 	@GetMapping("/getAllBrand")

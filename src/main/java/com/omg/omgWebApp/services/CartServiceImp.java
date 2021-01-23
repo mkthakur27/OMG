@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.omg.omgWebApp.model.Cart;
+import com.omg.omgWebApp.model.CartItemMap;
 //import com.omg.omgWebApp.model.Cart;
 import com.omg.omgWebApp.model.CartUserMap;
 import com.omg.omgWebApp.repositories.CartRepo;
@@ -102,5 +103,47 @@ public class CartServiceImp implements CartService{
 				break;
 			}
 		}
+	}
+
+	public List<CartItemMap> getCartByUser(int userId) {
+		// TODO Auto-generated method stub
+		List<CartUserMap> cart_user_list = this.cartRepo.getCartId(userId);
+		List<Integer> cart_list = new ArrayList<>();
+		List<CartItemMap> cartItems;
+		boolean found_active_cart = false;
+		int active_cart_id = 0;
+		
+		for (CartUserMap elm: cart_user_list)
+		{
+			cart_list.add(elm.getCartId());
+			System.out.println(elm.getCartId());
+		}
+
+		for (Integer cartId: cart_list)
+		{
+			Cart active_cart = this.cartRepo.isActive(cartId);
+			short active_or_not = active_cart.getIsActive();
+			System.out.println(active_or_not);
+			if (active_or_not == 1)
+			{
+				found_active_cart = true;
+				active_cart_id = cartId;
+				break;
+			}
+		}
+		if(found_active_cart) {
+			cartItems = this.cartRepo.getCartDetails(active_cart_id);
+		}
+		else {
+			// Just a hack, fix it later
+			cartItems = this.cartRepo.getCartDetails(0);
+		}
+		return cartItems;
+	}
+
+    // Just for testing
+	public List<CartItemMap> getAllCart() {
+		// TODO Auto-generated method stub
+		return this.cartRepo.getAllCart();
 	}
 }

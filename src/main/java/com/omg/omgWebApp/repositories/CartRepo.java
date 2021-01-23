@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.omg.omgWebApp.model.Cart;
+import com.omg.omgWebApp.model.CartItemMap;
 import com.omg.omgWebApp.model.CartUserMap;
 
 @Mapper
@@ -46,4 +47,10 @@ public interface CartRepo {
 	
 	@Update("update cart set isactive=0 where id=#{cartId}")
 	public void disableCart(int cartId);
+	
+	@Select("select * from cart_item_map where cartid=#{cartId}")
+	public List<CartItemMap> getCartDetails(int cartId);
+
+	@Select("select * from cart_item_map")
+	public List<CartItemMap> getAllCart();
 }

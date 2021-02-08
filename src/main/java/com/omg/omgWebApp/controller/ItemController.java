@@ -42,6 +42,12 @@ public class ItemController {
 		return this.itemService.getItemByType(type);
 	}
 	
+	@GetMapping("/getItemsByBrand/{brand}")
+	public List<Item> getItemByBrandId (@PathVariable(value="brand") int brandId)
+	{
+		return this.itemService.getItemByBrandId(brandId);
+	}
+	
 	@GetMapping("/dummyItem")
 	public Item getDummyCloth()
 	{

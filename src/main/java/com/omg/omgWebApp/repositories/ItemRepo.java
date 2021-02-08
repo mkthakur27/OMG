@@ -24,4 +24,7 @@ public interface ItemRepo{
 	
 	@Select("SELECT LAST_INSERT_ID()")
 	public int lastInsertId();
+
+	@Select("select * from item where brandId=#{brandId}")
+	public List<Item> findByBrandId(int brandId);
 }

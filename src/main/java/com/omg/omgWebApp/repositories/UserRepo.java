@@ -12,7 +12,7 @@ public interface UserRepo {
 	@Select("select * from user where userid= #{id}")
 	User findById(int id);
 	
-	@Insert("insert into user(name,mobilenumber,emailId,userrole) values(#{name},#{mobileNumber},#{emaiId},#{role})")
+	@Insert("insert into user(name,mobilenumber,emailId,userrole,password) values(#{name},#{mobileNumber},#{emaiId},#{role},#{password})")
 	void registerUser(User user);
 
 }

@@ -2,6 +2,7 @@ package com.omg.omgWebApp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping(value = "/registerUser")
+	@PostMapping(value = "/registerUser",consumes = { MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<String>  registerUser(@RequestBody User user)
 	{
 		try

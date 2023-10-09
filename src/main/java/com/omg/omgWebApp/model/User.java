@@ -13,4 +13,6 @@ public class User {
 	String mobileNumber;
 	String emaiId;
 	UserRole role;
+	String password;
+	String confirmPassword;
 }

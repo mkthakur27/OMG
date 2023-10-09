@@ -44,6 +44,12 @@ public class ItemService {
 	public List<Item> getAllCloth() {
 		return this.itemRepo.findAll();
 	}
+
+	public List<Item> getItemByBrandId(int brandId) {
+		List<Item> itemList = this.itemRepo.findByBrandId(brandId);
+		this.itemSizeQuantityPriceMapService.fillMaps(itemList);
+		return itemList;
+	}
 	
 
 }
